@@ -46,10 +46,10 @@ As campanhas serão lidas de uma tabela online. Adicionar um novo cliente ou mud
 - Desconectar a internet e verificar se o sistema exibe uma mensagem amigável ou usa um "cache" local.
 
 **Tarefas:**
-- [ ] Configurar projeto no Supabase (ou similar).
-- [ ] Criar a tabela `campaigns` com o schema definido na arquitetura técnica.
-- [ ] Criar um "Hook" no React (`useCampaigns`) para buscar dados via API.
-- [ ] Migrar os dados atuais do `constants.ts` para a tabela do banco.
+- [x] Configurar projeto no Supabase (ou similar).
+- [x] Criar a tabela `campaigns` com o schema definido na arquitetura técnica.
+- [x] Criar um "Hook" no React (`useCampaigns`) para buscar dados via API.
+- [x] Migrar os dados atuais do `constants.ts` para a tabela do banco.
 
 ### Épico 2.2: Painel de Manutenção Manual
 **O que poderá ser feito:**

@@ -6,8 +6,10 @@ import CampaignCard from './components/CampaignCard';
 import ImpactFooter from './components/ImpactFooter';
 import { CAMPAIGNS, BRAZIL_CENTER } from './constants';
 import { MapPosition } from './types';
+import { useCampaigns } from './hooks/useCampaigns';
 
 const App: React.FC = () => {
+  const { campaigns: dynamicCampaigns, loading } = useCampaigns();
   const [activeIdx, setActiveIdx] = useState(0);
   const [isLightingUp, setIsLightingUp] = useState(true);
   const [uiVisible, setUiVisible] = useState(true);
@@ -16,8 +18,11 @@ const App: React.FC = () => {
     zoom: 1,
   });
 
+  // Use dynamic campaigns if available, otherwise fallback to static ones
+  const campaigns = dynamicCampaigns.length > 0 ? dynamicCampaigns : CAMPAIGNS;
+
   const runAnimationSequence = useCallback(() => {
-    const nextIdx = (activeIdx + 1) % CAMPAIGNS.length;
+    const nextIdx = (activeIdx + 1) % campaigns.length;
 
     // 1. INÍCIO DO VAI (ZOOM OUT) - Agora dura 1.5s
     setUiVisible(false);
@@ -37,8 +42,8 @@ const App: React.FC = () => {
     setTimeout(() => {
       setIsLightingUp(true);
       setPosition({
-        coordinates: CAMPAIGNS[nextIdx].coordinates,
-        zoom: CAMPAIGNS[nextIdx].zoom
+        coordinates: campaigns[nextIdx].coordinates,
+        zoom: campaigns[nextIdx].zoom
       });
     }, 4000);
 
@@ -52,8 +57,8 @@ const App: React.FC = () => {
     // Zoom inicial mais rápido no boot
     const startTimer = setTimeout(() => {
       setPosition({
-        coordinates: CAMPAIGNS[0].coordinates,
-        zoom: CAMPAIGNS[0].zoom
+        coordinates: campaigns[0].coordinates,
+        zoom: campaigns[0].zoom
       });
     }, 800);
 
@@ -67,10 +72,10 @@ const App: React.FC = () => {
       clearTimeout(startTimer);
       clearInterval(interval);
     };
-  }, [runAnimationSequence]);
+  }, [runAnimationSequence, campaigns]); // Added campaigns to dependency to restart loop if data changes
 
 
-  const currentCampaign = CAMPAIGNS[activeIdx];
+  const currentCampaign = campaigns[activeIdx] || campaigns[0];
 
   return (
     <div className="w-full h-screen bg-[#050505] overflow-hidden flex relative selection:bg-[#FF2D55]/30">
@@ -155,7 +160,7 @@ const App: React.FC = () => {
 
         <div className="flex items-center gap-8 pointer-events-auto">
           <div className="flex gap-2">
-            {CAMPAIGNS.map((_, i) => (
+            {campaigns.map((_, i) => (
               <div
                 key={i}
                 className={`h-1 transition-all duration-[1000ms] rounded-full ${i === activeIdx ? 'w-16 bg-[#FF2D55]' : 'w-4 bg-white/10'}`}
