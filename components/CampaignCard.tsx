@@ -14,7 +14,7 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ client, type, description, 
   return (
     <div className="flex flex-col w-full max-w-[420px] gap-4">
       {/* Main Image Container */}
-      <div className="relative aspect-video rounded-[24px] overflow-hidden shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/5 bg-[#111]">
+      <div className="relative aspect-[4/5] rounded-[24px] overflow-hidden shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/5 bg-[#111]">
         <img
           src={imageUrl}
           alt={client}
