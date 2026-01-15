@@ -14,7 +14,7 @@ export const useCampaigns = () => {
                 const { data, error: supabaseError } = await supabase
                     .from('campaigns')
                     .select('*')
-                    .eq('is_active', true);
+                    .order('created_at', { ascending: false });
 
                 if (supabaseError) throw supabaseError;
 
@@ -29,7 +29,8 @@ export const useCampaigns = () => {
                         stateName: item.state_name,
                         impact: parseInt(item.impact_value),
                         coordinates: [item.coord_long, item.coord_lat],
-                        zoom: item.zoom_level
+                        zoom: item.zoom_level,
+                        is_active: item.is_active
                     }));
                     setCampaigns(mappedData);
                 }

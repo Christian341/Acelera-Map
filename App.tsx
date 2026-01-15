@@ -1,44 +1,53 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Settings } from 'lucide-react';
 import MapChart from './components/MapChart';
 import CampaignCard from './components/CampaignCard';
 import ImpactFooter from './components/ImpactFooter';
+import AdminPanel from './components/AdminPanel';
 import { CAMPAIGNS, BRAZIL_CENTER } from './constants';
 import { MapPosition } from './types';
 import { useCampaigns } from './hooks/useCampaigns';
 
 const App: React.FC = () => {
-  const { campaigns: dynamicCampaigns, loading } = useCampaigns();
+  const { campaigns: allCampaigns, loading } = useCampaigns();
   const [activeIdx, setActiveIdx] = useState(0);
   const [isLightingUp, setIsLightingUp] = useState(true);
   const [uiVisible, setUiVisible] = useState(true);
+  const [adminOpen, setAdminOpen] = useState(false);
   const [position, setPosition] = useState<MapPosition>({
     coordinates: BRAZIL_CENTER,
     zoom: 1,
   });
+  const [hasInitialized, setHasInitialized] = useState(false);
 
-  // Use dynamic campaigns if available, otherwise fallback to static ones
-  const campaigns = dynamicCampaigns.length > 0 ? dynamicCampaigns : CAMPAIGNS;
+  // Dashboard filter: Only active campaigns
+  const campaigns = allCampaigns.length > 0
+    ? allCampaigns.filter(c => c.is_active !== false)
+    : CAMPAIGNS;
 
   const runAnimationSequence = useCallback(() => {
-    const nextIdx = (activeIdx + 1) % campaigns.length;
+    if (campaigns.length <= 1) return;
 
-    // 1. INÍCIO DO VAI (ZOOM OUT) - Agora dura 1.5s
+    const nextIdx = (activeIdx + 1) % campaigns.length;
+    console.log(`[Dashboard] Transitioning from ${activeIdx} to ${nextIdx}`);
+
+    // 1. START OUT (ZOOM OUT)
     setUiVisible(false);
     setPosition({ coordinates: BRAZIL_CENTER, zoom: 1 });
 
-    // Apaga o brilho quando o zoom out está completo
+    // Turn off glow after zoom out finishes
     setTimeout(() => {
       setIsLightingUp(false);
     }, 1500);
 
-    // 2. TROCA DE DADOS - Agora em 2.5s
+    // 2. DATA EXCHANGE
     setTimeout(() => {
       setActiveIdx(nextIdx);
     }, 2500);
 
-    // 3. O VEM (PREPARAÇÃO E ZOOM IN) - Início do mergulho em 4s
+    // 3. START IN (ZOOM IN)
     setTimeout(() => {
       setIsLightingUp(true);
       setPosition({
@@ -47,35 +56,44 @@ const App: React.FC = () => {
       });
     }, 4000);
 
-    // 4. REVELAÇÃO DA UI - Após o zoom in de 4s completar (total 8s)
+    // 4. REVEAL UI
     setTimeout(() => {
       setUiVisible(true);
     }, 8000);
-  }, [activeIdx]);
+  }, [activeIdx, campaigns]);
 
+  // Initial boot and cycle management
   useEffect(() => {
-    // Zoom inicial mais rápido no boot
-    const startTimer = setTimeout(() => {
-      setPosition({
-        coordinates: campaigns[0].coordinates,
-        zoom: campaigns[0].zoom
-      });
-    }, 800);
+    if (campaigns.length === 0) return;
 
-    // Intervalo de ciclo total (tempo que a info fica na tela + transição)
-    // Aumentado para 14s para acomodar as animações mais longas
+    // First time load: zoom into first campaign
+    if (!hasInitialized) {
+      console.log("[Dashboard] Initializing first view");
+      const startTimer = setTimeout(() => {
+        setPosition({
+          coordinates: campaigns[0].coordinates,
+          zoom: campaigns[0].zoom
+        });
+        setHasInitialized(true);
+      }, 800);
+      return () => clearTimeout(startTimer);
+    }
+
+    // Schedule the next transition
     const interval = setInterval(() => {
       runAnimationSequence();
     }, 14000);
 
-    return () => {
-      clearTimeout(startTimer);
-      clearInterval(interval);
-    };
-  }, [runAnimationSequence, campaigns]); // Added campaigns to dependency to restart loop if data changes
-
+    return () => clearInterval(interval);
+  }, [runAnimationSequence, campaigns.length, hasInitialized]);
 
   const currentCampaign = campaigns[activeIdx] || campaigns[0];
+
+  if (!currentCampaign && loading) {
+    return <div className="w-full h-screen bg-[#050505] flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-[#FF2D55] border-t-transparent rounded-full animate-spin" />
+    </div>
+  }
 
   return (
     <div className="w-full h-screen bg-[#050505] overflow-hidden flex relative selection:bg-[#FF2D55]/30">
@@ -112,7 +130,6 @@ const App: React.FC = () => {
         </AnimatePresence>
       </div>
 
-
       {/* Impact Data (Bottom Right) */}
       <div className="absolute bottom-12 right-12 z-20">
         <AnimatePresence mode="wait">
@@ -142,23 +159,40 @@ const App: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col"
           >
-            <div className="h-12 flex items-center mb-1">
+            <div className="h-12 flex items-center mb-1 group">
               <img
                 src="/logo.png"
                 alt="Logo"
-                className="h-full w-auto object-contain pointer-events-auto"
-                onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+                className="h-full w-auto object-contain pointer-events-auto transition-opacity"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const parent = e.currentTarget.parentElement;
+                  if (parent && !parent.querySelector('.logo-fallback')) {
+                    const fallback = document.createElement('span');
+                    fallback.className = 'logo-fallback text-white font-black text-3xl tracking-tighter uppercase';
+                    fallback.innerText = 'Aceleraí';
+                    parent.appendChild(fallback);
+                  }
+                }}
               />
             </div>
             <div className="flex items-center gap-3 mt-1">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#FF2D55] animate-pulse" />
+              <div className="flex items-center gap-1.5 bg-white/5 px-2 py-0.5 rounded-full border border-white/5">
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-[8px] text-white/60 font-black uppercase tracking-widest">Live Server</span>
+              </div>
               <span className="text-white/20 text-[10px] uppercase tracking-[0.6em] font-bold">Geographic Impact Hub</span>
             </div>
           </motion.div>
-
         </div>
 
         <div className="flex items-center gap-8 pointer-events-auto">
+          <button
+            onClick={() => setAdminOpen(true)}
+            className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors border border-white/5 group"
+          >
+            <Settings className="text-white/40 group-hover:text-[#FF2D55] w-5 h-5 transition-colors" />
+          </button>
           <div className="flex gap-2">
             {campaigns.map((_, i) => (
               <div
@@ -173,6 +207,16 @@ const App: React.FC = () => {
       {/* Depth Filters */}
       <div className="absolute inset-y-0 left-0 w-[550px] pointer-events-none bg-gradient-to-r from-black via-black/70 to-transparent z-10" />
       <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_150px_rgba(0,0,0,0.8)] z-40" />
+
+      {/* Admin Panel Overlay */}
+      <AnimatePresence>
+        {adminOpen && (
+          <AdminPanel
+            campaigns={allCampaigns}
+            onClose={() => setAdminOpen(false)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

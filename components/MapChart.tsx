@@ -84,7 +84,6 @@ const MapChart: React.FC<MapChartProps> = ({ activeState, position }) => {
         <ZoomableGroup
           center={displayPosition.coordinates}
           zoom={displayPosition.zoom}
-          transitionDuration={0} // Framer Motion handles the transition
         >
           <Geographies geography={BR_TOPO_JSON}>
             {({ geographies }) =>
@@ -102,7 +101,7 @@ const MapChart: React.FC<MapChartProps> = ({ activeState, position }) => {
                         strokeWidth: isHighlighted ? 1.4 : 0.4,
                         outline: "none",
                         filter: isHighlighted ? "drop-shadow(0 0 25px rgba(255, 45, 85, 0.8))" : "none",
-                        transition: "fill 1.2s cubic-bezier(0.4, 0, 0.2, 1), stroke 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 1.2s ease, opacity 1.2s ease",
+                        transition: "fill 1.2s ease, stroke 1.2s ease, opacity 1.2s ease",
                         opacity: isHighlighted ? 1 : 0.6
                       },
                       hover: {

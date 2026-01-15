@@ -31,7 +31,7 @@ Qualquer membro da equipe poderá atualizar a marca do hub apenas trocando um ar
 **Tarefas:**
 - [ ] Criar estrutura de pasta `/public` (Concluído).
 - [ ] Substituir logo em texto por referência de imagem dinâmica (Concluído).
-- [ ] Adicionar tratamento de erro (fallback) caso a imagem da logo falhe ao carregar.
+- [x] Adicionar tratamento de erro (fallback) caso a imagem da logo falhe ao carregar. (Concluído)
 
 ---
 
@@ -53,15 +53,15 @@ As campanhas serão lidas de uma tabela online. Adicionar um novo cliente ou mud
 
 ### Épico 2.2: Painel de Manutenção Manual
 **O que poderá ser feito:**
-Você poderá alterar textos, trocar links de imagens e ajustar o nível de zoom de cada estado através de uma interface administrativa simples.
+Você poderá alterar textos, trocar as imagens (não devem ser links, mas sim arquivos) e ajustar o nível de zoom de cada estado através de uma interface administrativa simples.
 **Como validar:**
 - Alterar a descrição de uma campanha no painel administrativo e ver a mudança refletida no dashboard após o próximo ciclo.
 - Atualizar um "alcance estimado" e validar se o contador animado reflete o novo valor.
 
 **Tarefas:**
-- [ ] Configurar permissões de edição no banco de dados.
-- [ ] Criar campo para upload de imagem no banco (associando a URLs do storage).
-- [ ] Adicionar campos de controle de exibição (ex: checkbox "Ativo/Inativo").
+- [x] Configurar permissões de edição no banco de dados. (Concluído)
+- [x] Criar campo para upload de imagem no banco (associando a URLs do storage). (Concluído)
+- [x] Adicionar campos de controle de exibição (ex: checkbox "Ativo/Inativo"). (Concluído)
 
 ---
 
@@ -75,8 +75,8 @@ O dashboard atualizará os números de impacto instantaneamente assim que novos 
 - Com o dashboard aberto em uma tela, inserir um dado no banco via API externa e observar o contador ou card mudar "ao vivo".
 
 **Tarefas:**
-- [ ] Implementar WebSockets ou Real-time Subscriptions do banco.
-- [ ] Criar lógica de "Hot Swapping" (troca quente) de dados sem quebrar a animação em curso.
+- [x] Implementar WebSockets ou Real-time Subscriptions do banco. (Concluído)
+- [x] Criar lógica de "Hot Swapping" (troca quente) de dados sem quebrar a animação em curso. (Concluído)
 
 ### Épico 3.2: Inteligência Geográfica Automatizada
 **O que poderá ser feito:**

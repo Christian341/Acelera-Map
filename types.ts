@@ -10,6 +10,7 @@ export interface CampaignData {
   impact: number;
   coordinates: [number, number]; // [Longitude, Latitude]
   zoom: number; // Custom zoom level for this specific state
+  is_active?: boolean;
 }
 
 export interface MapPosition {
