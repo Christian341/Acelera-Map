@@ -1,0 +1,27 @@
+{
+  "name": "geographic-impact-dashboard---brazil",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-map/brazil": "1.0.1",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "framer-motion": "11.11.17",
+    "lucide-react": "0.454.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-simple-maps": "3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}

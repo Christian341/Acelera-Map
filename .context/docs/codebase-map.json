@@ -1,0 +1,239 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-01-15T17:56:27.925Z",
+  "stack": {
+    "primaryLanguage": "typescript",
+    "languages": [
+      "javascript",
+      "typescript"
+    ],
+    "frameworks": [],
+    "buildTools": [
+      "vite"
+    ],
+    "testFrameworks": [],
+    "packageManager": "npm",
+    "isMonorepo": false,
+    "hasDocker": false,
+    "hasCI": false
+  },
+  "structure": {
+    "totalFiles": 38,
+    "topDirectories": [
+      {
+        "name": "App.tsx",
+        "fileCount": 1
+      },
+      {
+        "name": "ARCHITECTURE.md",
+        "fileCount": 1
+      },
+      {
+        "name": "BACKLOG.md",
+        "fileCount": 1
+      },
+      {
+        "name": "commands",
+        "fileCount": 18
+      },
+      {
+        "name": "components",
+        "fileCount": 4
+      },
+      {
+        "name": "constants.ts",
+        "fileCount": 1
+      },
+      {
+        "name": "index.html",
+        "fileCount": 1
+      },
+      {
+        "name": "index.tsx",
+        "fileCount": 1
+      },
+      {
+        "name": "metadata.json",
+        "fileCount": 1
+      },
+      {
+        "name": "package-lock.json",
+        "fileCount": 1
+      },
+      {
+        "name": "package.json",
+        "fileCount": 1
+      },
+      {
+        "name": "PRD.md",
+        "fileCount": 1
+      },
+      {
+        "name": "PROJECT_DETAILS.md",
+        "fileCount": 1
+      },
+      {
+        "name": "public",
+        "fileCount": 1
+      },
+      {
+        "name": "README.md",
+        "fileCount": 1
+      },
+      {
+        "name": "tsconfig.json",
+        "fileCount": 1
+      },
+      {
+        "name": "types.ts",
+        "fileCount": 1
+      },
+      {
+        "name": "vite.config.ts",
+        "fileCount": 1
+      }
+    ],
+    "languageDistribution": [
+      {
+        "extension": ".md",
+        "count": 23
+      },
+      {
+        "extension": ".tsx",
+        "count": 6
+      },
+      {
+        "extension": ".json",
+        "count": 4
+      },
+      {
+        "extension": ".ts",
+        "count": 3
+      },
+      {
+        "extension": ".html",
+        "count": 1
+      },
+      {
+        "extension": ".png",
+        "count": 1
+      }
+    ]
+  },
+  "architecture": {
+    "layers": [
+      {
+        "name": "Components",
+        "description": "UI components and views",
+        "directories": [
+          "components"
+        ],
+        "symbolCount": 4,
+        "dependsOn": []
+      }
+    ],
+    "patterns": [],
+    "entryPoints": [
+      "index.tsx"
+    ]
+  },
+  "symbols": {
+    "classes": [],
+    "interfaces": [
+      {
+        "name": "CampaignData",
+        "kind": "interface",
+        "file": "types.ts",
+        "line": 2,
+        "exported": true
+      },
+      {
+        "name": "MapPosition",
+        "kind": "interface",
+        "file": "types.ts",
+        "line": 15,
+        "exported": true
+      },
+      {
+        "name": "CampaignCardProps",
+        "kind": "interface",
+        "file": "components\\CampaignCard.tsx",
+        "line": 5,
+        "exported": false
+      },
+      {
+        "name": "DashboardProps",
+        "kind": "interface",
+        "file": "components\\GeographicDashboard.tsx",
+        "line": 10,
+        "exported": false
+      },
+      {
+        "name": "ImpactFooterProps",
+        "kind": "interface",
+        "file": "components\\ImpactFooter.tsx",
+        "line": 5,
+        "exported": false
+      },
+      {
+        "name": "MapChartProps",
+        "kind": "interface",
+        "file": "components\\MapChart.tsx",
+        "line": 13,
+        "exported": false
+      }
+    ],
+    "functions": [],
+    "types": [],
+    "enums": []
+  },
+  "publicAPI": [
+    {
+      "name": "CampaignData",
+      "kind": "interface",
+      "file": "types.ts",
+      "line": 2,
+      "exported": true
+    },
+    {
+      "name": "MapPosition",
+      "kind": "interface",
+      "file": "types.ts",
+      "line": 15,
+      "exported": true
+    }
+  ],
+  "dependencies": {
+    "mostImported": [
+      {
+        "file": "C:\\Users\\Administradorr\\Documents\\códigos\\geographic-impact-dashboard---brazil\\types.ts",
+        "importedBy": 4
+      },
+      {
+        "file": "C:\\Users\\Administradorr\\Documents\\códigos\\geographic-impact-dashboard---brazil\\components\\MapChart.tsx",
+        "importedBy": 2
+      },
+      {
+        "file": "C:\\Users\\Administradorr\\Documents\\códigos\\geographic-impact-dashboard---brazil\\components\\CampaignCard.tsx",
+        "importedBy": 2
+      },
+      {
+        "file": "C:\\Users\\Administradorr\\Documents\\códigos\\geographic-impact-dashboard---brazil\\components\\ImpactFooter.tsx",
+        "importedBy": 2
+      },
+      {
+        "file": "C:\\Users\\Administradorr\\Documents\\códigos\\geographic-impact-dashboard---brazil\\constants.ts",
+        "importedBy": 2
+      },
+      {
+        "file": "C:\\Users\\Administradorr\\Documents\\códigos\\geographic-impact-dashboard---brazil\\App.tsx",
+        "importedBy": 1
+      }
+    ]
+  },
+  "stats": {
+    "totalSymbols": 6,
+    "exportedSymbols": 2,
+    "analysisTimeMs": 302
+  }
+}
