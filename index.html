@@ -9,6 +9,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
+        :root {
+            --glass-bg: rgba(10, 10, 10, 0.6);
+            --glass-blur: blur(24px) saturate(180%);
+            --glow-filter: drop_shadow(0 0 15px #FF2D55);
+            --grain-opacity: 0.05;
+            --scanlines-opacity: 0.3;
+        }
+
+        body.low-end {
+            --glass-bg: rgba(5, 5, 5, 0.95);
+            --glass-blur: none;
+            --glow-filter: drop-shadow(0 0 2px #FF2D55);
+            /* Much cheaper */
+            --grain-opacity: 0;
+            /* Disable grain */
+            --scanlines-opacity: 0;
+            /* Disable scanlines */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -32,15 +51,17 @@
             background-size: 100% 2px, 3px 100%;
             pointer-events: none;
             z-index: 100;
-            opacity: 0.3;
+            opacity: var(--scanlines-opacity);
+            transition: opacity 0.5s ease;
         }
 
         .glass {
-            background: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            transition: background 0.5s ease;
         }
 
         /* Grain effect */
@@ -51,15 +72,17 @@
             width: 100%;
             height: 100%;
             background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-            opacity: 0.05;
+            opacity: var(--grain-opacity);
             pointer-events: none;
             z-index: 99;
             mix-blend-mode: overlay;
+            transition: opacity 0.5s ease;
         }
 
         /* Custom glow for the active state */
         .active-state-glow {
-            filter: drop-shadow(0 0 15px #FF2D55);
+            filter: var(--glow-filter);
+            transition: filter 0.5s ease;
         }
 
         ::-webkit-scrollbar {

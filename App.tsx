@@ -9,8 +9,10 @@ import AdminPanel from './components/AdminPanel';
 import { CAMPAIGNS, BRAZIL_CENTER } from './constants';
 import { MapPosition } from './types';
 import { useCampaigns } from './hooks/useCampaigns';
+import { usePerformanceMode } from './hooks/usePerformanceMode';
 
 const App: React.FC = () => {
+  usePerformanceMode(); // Enables global performance monitoring
   const { campaigns: allCampaigns, loading } = useCampaigns();
   const [activeIdx, setActiveIdx] = useState(0);
   const [isLightingUp, setIsLightingUp] = useState(true);

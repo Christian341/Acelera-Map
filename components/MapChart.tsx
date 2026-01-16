@@ -19,6 +19,45 @@ interface MapChartProps {
 const EASE_ZOOM_IN: [number, number, number, number] = [0.19, 1, 0.22, 1]; // Equivalent to easeOutExpo but more controlled
 const EASE_ZOOM_OUT: [number, number, number, number] = [0.45, 0, 0.55, 1]; // Smooth ease-in-out for the pull back
 
+const BrazilMapContent = React.memo(({ activeState }: { activeState: string }) => {
+  return (
+    <Geographies geography={BR_TOPO_JSON}>
+      {({ geographies }) =>
+        geographies.map((geo) => {
+          const isHighlighted = geo.properties.name === activeState;
+
+          return (
+            <Geography
+              key={geo.rsmKey}
+              geography={geo}
+              style={{
+                default: {
+                  fill: isHighlighted ? "#FF2D55" : "#0D0D0D",
+                  stroke: isHighlighted ? "#FF2D55" : "#222",
+                  strokeWidth: isHighlighted ? 1.4 : 0.4,
+                  outline: "none",
+                  filter: isHighlighted ? "var(--glow-filter)" : "none", // Uses CSS variable
+                  transition: "fill 1.2s ease, stroke 1.2s ease, opacity 1.2s ease, filter 1.2s ease",
+                  opacity: isHighlighted ? 1 : 0.6
+                },
+                hover: {
+                  fill: isHighlighted ? "#FF2D55" : "#1a1a1a",
+                  stroke: isHighlighted ? "#FF2D55" : "#333",
+                  outline: "none",
+                },
+                pressed: {
+                  fill: "#FF2D55",
+                  outline: "none",
+                },
+              }}
+            />
+          );
+        })
+      }
+    </Geographies>
+  );
+}, (prev, next) => prev.activeState === next.activeState);
+
 const MapChart: React.FC<MapChartProps> = ({ activeState, position }) => {
   const [displayPosition, setDisplayPosition] = useState<MapPosition>(position);
 
@@ -85,40 +124,7 @@ const MapChart: React.FC<MapChartProps> = ({ activeState, position }) => {
           center={displayPosition.coordinates}
           zoom={displayPosition.zoom}
         >
-          <Geographies geography={BR_TOPO_JSON}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
-                const isHighlighted = geo.properties.name === activeState;
-
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    style={{
-                      default: {
-                        fill: isHighlighted ? "#FF2D55" : "#0D0D0D",
-                        stroke: isHighlighted ? "#FF2D55" : "#222",
-                        strokeWidth: isHighlighted ? 1.4 : 0.4,
-                        outline: "none",
-                        filter: isHighlighted ? "drop-shadow(0 0 25px rgba(255, 45, 85, 0.8))" : "none",
-                        transition: "fill 1.2s ease, stroke 1.2s ease, opacity 1.2s ease",
-                        opacity: isHighlighted ? 1 : 0.6
-                      },
-                      hover: {
-                        fill: isHighlighted ? "#FF2D55" : "#1a1a1a",
-                        stroke: isHighlighted ? "#FF2D55" : "#333",
-                        outline: "none",
-                      },
-                      pressed: {
-                        fill: "#FF2D55",
-                        outline: "none",
-                      },
-                    }}
-                  />
-                );
-              })
-            }
-          </Geographies>
+          <BrazilMapContent activeState={activeState} />
         </ZoomableGroup>
       </ComposableMap>
 
