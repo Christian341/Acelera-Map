@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Aceleraí Global Impact Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -26,6 +29,58 @@
             /* Disable grain */
             --scanlines-opacity: 0;
             /* Disable scanlines */
+        }
+
+        /* TV Mode - Ultra Performance */
+        body.tv-mode {
+            --glass-bg: rgba(5, 5, 5, 0.98);
+            --glass-blur: none;
+            --glow-filter: none;
+            --grain-opacity: 0;
+            --scanlines-opacity: 0;
+        }
+
+        /* TV Mode: Disable expensive effects */
+        body.tv-mode * {
+            text-shadow: none !important;
+            box-shadow: none !important;
+        }
+
+        /* TV Mode: Larger fonts for readability at distance */
+        body.tv-mode {
+            font-size: 18px;
+        }
+
+        body.tv-mode h1 {
+            font-size: 3rem;
+        }
+
+        body.tv-mode h2 {
+            font-size: 2.5rem;
+        }
+
+        body.tv-mode p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+        }
+
+        /* TV Mode: Simplified animations */
+        body.tv-mode * {
+            animation-duration: 0.3s !important;
+            transition-duration: 0.3s !important;
+        }
+
+        /* TV Mode: Remove hover effects (no mouse on TV) */
+        body.tv-mode *:hover {
+            transform: none !important;
+            opacity: 1 !important;
+        }
+
+        /* TV Mode: High contrast for better visibility */
+        body.tv-mode {
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.85);
+            --accent-color: #FF2D55;
         }
 
         body {

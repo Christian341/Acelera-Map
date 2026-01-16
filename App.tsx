@@ -10,8 +10,37 @@ import { CAMPAIGNS, BRAZIL_CENTER } from './constants';
 import { MapPosition } from './types';
 import { useCampaigns } from './hooks/useCampaigns';
 import { usePerformanceMode } from './hooks/usePerformanceMode';
+import { useTVMode } from './hooks/useTVMode';
+import { useAutoReload } from './hooks/useAutoReload';
+import { usePerformanceMonitor } from './hooks/usePerformanceMonitor';
 
 const App: React.FC = () => {
+  // TV Mode Detection and Configuration
+  const { isTVMode, config: tvConfig } = useTVMode();
+
+  // Auto-reload for TV mode (prevents memory leaks)
+  useAutoReload({
+    enabled: isTVMode && tvConfig.autoReloadInterval > 0,
+    intervalSeconds: tvConfig.autoReloadInterval,
+    onBeforeReload: () => {
+      console.log('[TV Mode] Preparing for auto-reload...');
+    },
+  });
+
+  // Performance monitoring for TV mode
+  usePerformanceMonitor({
+    enabled: isTVMode && tvConfig.enablePerformanceMonitor,
+    memoryThresholdMB: 100,
+    fpsThreshold: 20,
+    checkIntervalMs: 60000,
+    onMemoryWarning: (usedMB) => {
+      console.warn(`[TV Mode] Memory warning: ${usedMB.toFixed(1)}MB`);
+    },
+    onLowFPS: (fps) => {
+      console.warn(`[TV Mode] Low FPS warning: ${fps.toFixed(1)}fps`);
+    },
+  });
+
   usePerformanceMode(); // Enables global performance monitoring
   const { campaigns: allCampaigns, loading } = useCampaigns();
   const [activeIdx, setActiveIdx] = useState(0);
