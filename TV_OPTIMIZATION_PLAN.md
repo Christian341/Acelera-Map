@@ -225,6 +225,27 @@ Sistema de watchdog para detectar e corrigir problemas automaticamente.
 
 ---
 
+### **Camada 7: Tuning de Animação e Intervalos**
+Ajuste fino para sensação "snappy" e redução de tempo morto.
+
+#### Ações Críticas:
+- [x] **Reduzir Ciclo de Slides (10s -> 5s)**
+  - Ajustar `setInterval` em `App.tsx` para 9000ms (4s transição + 5s pausa).
+  - Recalibrar delays de `runAnimationSequence`:
+    - Zoom Out: 0ms (Duração 0.8s)
+    - Data Swap: 1000ms
+    - Zoom In: 1200ms (Duração 2.0s)
+    - UI Reveal: 3500ms
+  - Atualizar prop `duration` do `<CampaignCard />` de 14000 para 9000.
+
+- [x] **Acelerar Transições do Mapa (Vai e Vem)**
+  - Em `components/MapChart.tsx`:
+    - `duration` Zoom In: **2.0s** (era 4.0s)
+    - `duration` Zoom Out: **0.8s** (era 1.5s)
+    - Manter easing cinematográfico, mas mais rápido.
+
+---
+
 ## 📋 Plano de Implementação (Ordem de Prioridade)
 
 ### **Sprint 1: Fundação (Crítico - 2 dias)** ✅ CONCLUÍDO

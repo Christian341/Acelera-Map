@@ -89,7 +89,7 @@ const MapChart: React.FC<MapChartProps> = ({ activeState, position }) => {
 
     // 3. Determine animation params
     const isZoomingIn = targetScale > prevZoom;
-    const duration = isZoomingIn ? 4.0 : 1.5;
+    const duration = isZoomingIn ? 2.0 : 0.8;
     const ease = isZoomingIn ? EASE_ZOOM_IN : EASE_ZOOM_OUT;
 
     // 4. Animate directly (Zero React Render)

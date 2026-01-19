@@ -68,15 +68,15 @@ const App: React.FC = () => {
     setUiVisible(false);
     setPosition({ coordinates: BRAZIL_CENTER, zoom: 1 });
 
-    // Turn off glow after zoom out finishes
+    // Turn off glow after zoom out finishes (approx 0.8s)
     setTimeout(() => {
       setIsLightingUp(false);
-    }, 1500);
+    }, 800);
 
     // 2. DATA EXCHANGE
     setTimeout(() => {
       setActiveIdx(nextIdx);
-    }, 2500);
+    }, 1000);
 
     // 3. START IN (ZOOM IN)
     setTimeout(() => {
@@ -85,12 +85,12 @@ const App: React.FC = () => {
         coordinates: campaigns[nextIdx].coordinates,
         zoom: campaigns[nextIdx].zoom
       });
-    }, 4000);
+    }, 1200);
 
     // 4. REVEAL UI
     setTimeout(() => {
       setUiVisible(true);
-    }, 8000);
+    }, 3500);
   }, [activeIdx, campaigns]);
 
   // Initial boot and cycle management
@@ -113,7 +113,7 @@ const App: React.FC = () => {
     // Schedule the next transition
     const interval = setInterval(() => {
       runAnimationSequence();
-    }, 14000);
+    }, 9000);
 
     return () => clearInterval(interval);
   }, [runAnimationSequence, campaigns.length, hasInitialized]);
@@ -154,7 +154,7 @@ const App: React.FC = () => {
                 type={currentCampaign.type}
                 description={currentCampaign.description}
                 imageUrl={currentCampaign.imageUrl}
-                duration={14000}
+                duration={9000}
               />
             </motion.div>
           )}
