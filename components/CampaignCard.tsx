@@ -10,7 +10,7 @@ interface CampaignCardProps {
   duration?: number;
 }
 
-const CampaignCard: React.FC<CampaignCardProps> = ({ client, type, description, imageUrl, duration = 14000 }) => {
+const CampaignCard: React.FC<CampaignCardProps> = ({ client, type, description, imageUrl, duration = 8000 }) => {
   return (
     <div className="flex flex-col w-full max-w-[420px] gap-4">
       {/* Main Image Container */}
@@ -18,7 +18,7 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ client, type, description, 
         <img
           src={imageUrl}
           alt={client}
-          className="w-full h-full object-cover transition-transform duration-[6000ms] hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-[5000ms] hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
       </div>
