@@ -108,7 +108,7 @@ const MapChart: React.FC<MapChartProps> = ({ activeState, position }) => {
 
   return (
     <div className="w-full h-full relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_50%,_rgba(255,45,85,0.03)_0%,_transparent_75%)] pointer-events-none z-0" />
+      -      {/* Background patterns removed for solid look */}
 
       {/* 
          We control the transform manually via motion.g.
@@ -139,10 +139,7 @@ const MapChart: React.FC<MapChartProps> = ({ activeState, position }) => {
         </motion.g>
       </ComposableMap>
 
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="w-full h-full opacity-[0.01]"
-          style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
-      </div>
+      -      {/* Dot patterns removed */}
     </div>
   );
 };

@@ -100,20 +100,8 @@
             transition: background 0.5s ease;
         }
 
-        /* Grain effect */
-        .grain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-            opacity: var(--grain-opacity);
-            pointer-events: none;
-            z-index: 99;
-            mix-blend-mode: overlay;
-            transition: opacity 0.5s ease;
-        }
+        -
+        /* Grain effect removed */
 
         /* Custom glow for the active state */
         .active-state-glow {
@@ -157,7 +145,7 @@
 </head>
 
 <body>
-    <div class="grain"></div>
+    - <div class="grain"></div>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
 </body>

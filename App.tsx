@@ -235,9 +235,7 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Depth Filters */}
-      <div className="absolute inset-y-0 left-0 w-[550px] pointer-events-none bg-gradient-to-r from-black via-black/70 to-transparent z-10" />
-      <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_150px_rgba(0,0,0,0.8)] z-40" />
+      -      {/* Depth Filters removed for solid look */}
 
       {/* Admin Panel Overlay */}
       <AnimatePresence>
