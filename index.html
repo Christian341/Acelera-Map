@@ -17,7 +17,6 @@
             --glass-blur: blur(24px) saturate(180%);
             --glow-filter: drop_shadow(0 0 15px #FF2D55);
             --grain-opacity: 0.05;
-            --scanlines-opacity: 0.3;
         }
 
         body.low-end {
@@ -27,8 +26,6 @@
             /* Much cheaper */
             --grain-opacity: 0;
             /* Disable grain */
-            --scanlines-opacity: 0;
-            /* Disable scanlines */
         }
 
         /* TV Mode - Ultra Performance */
@@ -37,7 +34,6 @@
             --glass-blur: none;
             --glow-filter: none;
             --grain-opacity: 0;
-            --scanlines-opacity: 0;
         }
 
         /* TV Mode: Disable expensive effects */
@@ -93,22 +89,7 @@
             position: relative;
         }
 
-        /* War-room Scanlines effect */
-        body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%,
-                    rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg,
-                    rgba(255, 0, 0, 0.02),
-                    rgba(0, 255, 0, 0.01),
-                    rgba(0, 0, 255, 0.02));
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-            z-index: 100;
-            opacity: var(--scanlines-opacity);
-            transition: opacity 0.5s ease;
-        }
+        /* War-room Scanlines effect removed */
 
         .glass {
             background: var(--glass-bg);
